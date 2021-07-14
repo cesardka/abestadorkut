@@ -42,7 +42,7 @@ export const Box = styled.div`
 
   input {
     width: 100%;
-    background-color: var(--gray4);
+    background-color: var(--gray5);
     color: var(--gray1);
     border: 0;
     padding: 14px 16px;
