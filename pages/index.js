@@ -2,14 +2,16 @@ import Head from "next/head";
 import { useState } from "react";
 import { MainGrid } from "../src/components/MainGrid";
 import { Box } from "../src/components/Box";
+import { Form } from "../src/components/Form";
 import { ProfileSideBar } from "../src/components/ProfileSideBar";
-import { ProfileRelationsBoxWrapper } from "../src/components/ProfileRelations";
+import { ProfileRelationsBoxWrapper } from "../src/components/ProfileRelationsBoxWrapper";
 import {
   AlurakutMenu,
   OrkutNostalgicIconSet,
 } from "../src/lib/AlurakutCommons";
 
 export default function Home() {
+  const MAX_GRID_LIST = 6;
   const githubUser = "cesardka";
   const [communities, setCommunities] = useState([
     {
@@ -50,7 +52,7 @@ export default function Home() {
       <Head>
         <title>AbestadOrkut</title>
       </Head>
-      <AlurakutMenu />
+      <AlurakutMenu githubUser={githubUser} />
       <MainGrid>
         <div className="profileArea">
           <ProfileSideBar user={githubUser} />
@@ -62,7 +64,10 @@ export default function Home() {
           </Box>
           <Box>
             <h2 className="subTitle">O que você deseja fazer?</h2>
-            <form onSubmit={handleCreateCommunity}>
+            <Form
+              onSubmit={handleCreateCommunity}
+              submitButtonText="Criar comunidade"
+            >
               <input
                 placeholder="Qual vai ser o nome da sua comuniudade?"
                 name="title"
@@ -80,8 +85,7 @@ export default function Home() {
                 aria-label="Onde fica a sua comunidade?"
                 type="text"
               />
-              <button type="submit">Criar comunidade</button>
-            </form>
+            </Form>
           </Box>
         </div>
         <div className="profileRelationsArea">
