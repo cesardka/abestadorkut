@@ -10,6 +10,7 @@ import {
   AlurakutMenu,
   OrkutNostalgicIconSet,
 } from "../src/lib/AlurakutCommons";
+import { githubUser } from "../src/constants";
 
 export default function Home() {
   const MAX_GRID_LIST = 6;

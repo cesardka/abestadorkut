@@ -1,3 +1,4 @@
+import { MAX_GRID_LIST } from "../../constants";
 import { ProfileRelationsBoxWrapper } from "../ProfileRelationsBoxWrapper";
 
 export const CommunityBox = ({
@@ -5,8 +6,6 @@ export const CommunityBox = ({
   type = "friends" | "community",
   items = [],
 }) => {
-  const MAX_GRID_LIST = 6;
-
   return (
     <ProfileRelationsBoxWrapper>
       <h2 className="smallTitle">
