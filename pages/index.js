@@ -110,7 +110,7 @@ export default function Home() {
             <ul>
               {favoriteUsers.slice(0, MAX_GRID_LIST).map((user) => (
                 <li key={user}>
-                  <a href={`/users/${user}`}>
+                  <a href={`https://github.com/${user}`}>
                     <img src={`https://github.com/${user}.png`} />
                     <span>{user}</span>
                   </a>
@@ -123,7 +123,7 @@ export default function Home() {
             <ul>
               {communities.slice(0, MAX_GRID_LIST).map((community) => (
                 <li key={community.id}>
-                  <a href={`/users/${community.title}`}>
+                  <a href={`${community.url}`} target="_blank">
                     <img src={community.image} />
                     <span>{community.title}</span>
                   </a>
