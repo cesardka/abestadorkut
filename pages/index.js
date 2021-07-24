@@ -87,19 +87,13 @@ export default function Home() {
               items={followers}
             />
           )}
-          <ProfileRelationsBoxWrapper>
-            <h2 className="smallTitle">Comunidades ({communities.length})</h2>
-            <ul>
-              {communities.slice(0, MAX_GRID_LIST).map((community) => (
-                <li key={community.id}>
-                  <a href={`${community.url}`} target="_blank">
-                    <img src={community.image} />
-                    <span>{community.title}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </ProfileRelationsBoxWrapper>
+          {communities && (
+            <CommunityBox
+              title="Comunidades"
+              type="community"
+              items={communities}
+            />
+          )}
         </div>
       </MainGrid>
     </>
