@@ -1,4 +1,4 @@
-import { getCommunities } from "./communities";
-import { getFollowers } from "./followers";
+import * as Communities from "./communities";
+import * as Followers from "./followers";
 
-export { getCommunities, getFollowers };
+export { Communities, Followers };

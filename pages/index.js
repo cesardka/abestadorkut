@@ -5,7 +5,7 @@ import { Box } from "../src/components/Box";
 import { Form } from "../src/components/Form";
 import { ProfileSideBar } from "../src/components/ProfileSideBar";
 import { CommunityBox } from "../src/components/ProfileRelationItem";
-import { getCommunities, getFollowers } from "./api";
+import { Communities, Followers } from "./api";
 import {
   AlurakutMenu,
   OrkutNostalgicIconSet,
@@ -17,8 +17,8 @@ export default function Home() {
   const [followers, setFollowers] = useState([]);
 
   useEffect(async () => {
-    const newCommunities = await getCommunities();
-    const newFollowers = await getFollowers(githubUser);
+    const newCommunities = await Communities.getAll();
+    const newFollowers = await Followers.getAll(githubUser);
 
     setCommunities(newCommunities);
     setFollowers(newFollowers);
