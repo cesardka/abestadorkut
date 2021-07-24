@@ -4,6 +4,7 @@ import { MainGrid } from "../src/components/MainGrid";
 import { Box } from "../src/components/Box";
 import { Form } from "../src/components/Form";
 import { ProfileSideBar } from "../src/components/ProfileSideBar";
+import { CommunityBox } from "../src/components/ProfileRelationItem";
 import { ProfileRelationsBoxWrapper } from "../src/components/ProfileRelationsBoxWrapper";
 import {
   AlurakutMenu,
@@ -13,7 +14,7 @@ import {
 export default function Home() {
   const MAX_GRID_LIST = 6;
   const githubUser = "cesardka";
-  const [communities, setCommunities] = useState([
+  const defaultCommunities = [
     {
       id: new Date().toISOString(),
       title: "A minha mãe me ama",
@@ -21,18 +22,9 @@ export default function Home() {
         "https://www.culturamix.com/wp-content/gallery/tiririca-humorista/tiririca-humorista-10.jpg",
       url: "https://www.youtube.com/watch?v=aU5Iyc8IEV8",
     },
-  ]);
-  const favoriteUsers = [
-    "browserdotsys",
-    "fellowsheep",
-    "Melissa-Lima",
-    "filipecheverrya",
-    "vit090",
-    "cristofersouza",
-    "Hudell",
-    "nicolascb",
   ];
 
+  const [communities, setCommunities] = useState(defaultCommunities);
   const [followers, setFollowers] = useState([]);
 
   const getFollowers = async (user) => {
@@ -103,21 +95,13 @@ export default function Home() {
           </Box>
         </div>
         <div className="profileRelationsArea">
-          <ProfileRelationsBoxWrapper>
-            <h2 className="smallTitle">
-              Pessoas da comunidade ({favoriteUsers.length})
-            </h2>
-            <ul>
-              {favoriteUsers.slice(0, MAX_GRID_LIST).map((user) => (
-                <li key={user}>
-                  <a href={`https://github.com/${user}`}>
-                    <img src={`https://github.com/${user}.png`} />
-                    <span>{user}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </ProfileRelationsBoxWrapper>
+          {followers && (
+            <CommunityBox
+              title="Pessoas da comunidade"
+              type="friends"
+              items={followers}
+            />
+          )}
           <ProfileRelationsBoxWrapper>
             <h2 className="smallTitle">Comunidades ({communities.length})</h2>
             <ul>
