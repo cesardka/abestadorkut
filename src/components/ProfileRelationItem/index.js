@@ -15,20 +15,20 @@ export const CommunityBox = ({
         {type === "friends" &&
           items
             .slice(0, MAX_GRID_LIST)
-            .map((d) => <FriendRelationItem props={d} />)}
+            .map((d) => <FriendRelationItem props={d} key={d.id} />)}
 
         {type === "community" &&
           items
             .slice(0, MAX_GRID_LIST)
-            .map((d) => <CommunityRelationItem props={d} />)}
+            .map((d) => <CommunityRelationItem props={d} key={d.id} />)}
       </ul>
     </ProfileRelationsBoxWrapper>
   );
 };
 
-const FriendRelationItem = ({ props: { id, url, avatar_url, login } }) => {
+const FriendRelationItem = ({ props: { url, avatar_url, login } }) => {
   return (
-    <li key={id}>
+    <li>
       <a href={url}>
         <img src={avatar_url} />
         <span>{login}</span>
@@ -37,12 +37,12 @@ const FriendRelationItem = ({ props: { id, url, avatar_url, login } }) => {
   );
 };
 
-const CommunityRelationItem = (user) => {
+const CommunityRelationItem = ({ props: { title, imageUrl, url } }) => {
   return (
-    <li key={user}>
-      <a href={`/users/${user}`}>
-        <img src={`https://github.com/${user}.png`} />
-        <span>{user}</span>
+    <li>
+      <a href={url}>
+        <img src={imageUrl} />
+        <span>{title}</span>
       </a>
     </li>
   );
