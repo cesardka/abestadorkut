@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MainGrid } from "../src/components/MainGrid";
 import { Box } from "../src/components/Box";
 import { Form } from "../src/components/Form";
@@ -32,6 +32,20 @@ export default function Home() {
     "Hudell",
     "nicolascb",
   ];
+
+  const [followers, setFollowers] = useState([]);
+
+  const getFollowers = async (user) => {
+    const response = await fetch(
+      `https://api.github.com/users/${user}/followers`
+    );
+
+    return await response.json();
+  };
+
+  useEffect(async () => {
+    return setFollowers(await getFollowers(githubUser));
+  }, []);
 
   const handleCreateCommunity = (event) => {
     event.preventDefault();
