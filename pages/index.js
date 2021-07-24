@@ -5,7 +5,7 @@ import { Box } from "../src/components/Box";
 import { Form } from "../src/components/Form";
 import { ProfileSideBar } from "../src/components/ProfileSideBar";
 import { CommunityBox } from "../src/components/ProfileRelationItem";
-import { ProfileRelationsBoxWrapper } from "../src/components/ProfileRelationsBoxWrapper";
+import { getCommunities, getFollowers } from "./api";
 import {
   AlurakutMenu,
   OrkutNostalgicIconSet,
@@ -13,31 +13,15 @@ import {
 import { githubUser } from "../src/constants";
 
 export default function Home() {
-  const MAX_GRID_LIST = 6;
-  const githubUser = "cesardka";
-  const defaultCommunities = [
-    {
-      id: new Date().toISOString(),
-      title: "A minha mãe me ama",
-      image:
-        "https://www.culturamix.com/wp-content/gallery/tiririca-humorista/tiririca-humorista-10.jpg",
-      url: "https://www.youtube.com/watch?v=aU5Iyc8IEV8",
-    },
-  ];
-
-  const [communities, setCommunities] = useState(defaultCommunities);
+  const [communities, setCommunities] = useState([]);
   const [followers, setFollowers] = useState([]);
 
-  const getFollowers = async (user) => {
-    const response = await fetch(
-      `https://api.github.com/users/${user}/followers`
-    );
-
-    return await response.json();
-  };
-
   useEffect(async () => {
-    return setFollowers(await getFollowers(githubUser));
+    const newCommunities = await getCommunities();
+    const newFollowers = await getFollowers(githubUser);
+
+    setCommunities(newCommunities);
+    setFollowers(newFollowers);
   }, []);
 
   const handleCreateCommunity = (event) => {
