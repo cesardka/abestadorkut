@@ -31,6 +31,7 @@ export default function Home() {
       id: new Date().toISOString(),
       title: communityFormData.get("title"),
       image: communityFormData.get("image"),
+      url: communityFormData.get("url"),
     };
 
     const newCommunityList = [...communities, newCommunity];
