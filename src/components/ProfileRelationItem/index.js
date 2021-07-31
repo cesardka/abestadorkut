@@ -29,7 +29,7 @@ export const CommunityBox = ({
 const FriendRelationItem = ({ props: { url, avatar_url, login } }) => {
   return (
     <li>
-      <a href={url}>
+      <a href={url} target="_blank">
         <img src={avatar_url} />
         <span>{login}</span>
       </a>
@@ -40,7 +40,7 @@ const FriendRelationItem = ({ props: { url, avatar_url, login } }) => {
 const CommunityRelationItem = ({ props: { title, imageUrl, url } }) => {
   return (
     <li>
-      <a href={url}>
+      <a href={url} target="_blank">
         <img src={imageUrl} />
         <span>{title}</span>
       </a>
