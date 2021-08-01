@@ -5,10 +5,9 @@ const datoCmsClient = new SiteClient(DATO_API_TOKEN);
 
 const getAll = async ({ limit = 0 }) => {
   const pageLimit = limit ? { "page[limit]": limit } : {};
-
   const data = await datoCmsClient.items.all(
     {
-      "filter[type]": "community",
+      "filter[type]": "testimonial",
       ...pageLimit,
     },
     !limit ? { allPages: true } : {}
@@ -20,7 +19,7 @@ const getAll = async ({ limit = 0 }) => {
 const create = async ({ title, description = "", imageUrl, url }) => {
   try {
     return await datoCmsClient.items.create({
-      itemType: datoModelId["community"],
+      itemType: datoModelId["testimonial"],
       title,
       description,
       imageUrl,
@@ -28,7 +27,7 @@ const create = async ({ title, description = "", imageUrl, url }) => {
     });
   } catch (e) {
     console.error(
-      `Failed to create new community! Error: [${JSON.stringify(e)}]`
+      `Failed to create new testimonial! Error: [${JSON.stringify(e)}]`
     );
   }
 };
@@ -43,7 +42,7 @@ const handler = async (req, res) => {
       fetchResponse = await create(req.body);
       break;
     default:
-      return res.status(500);
+      return res.status(404);
   }
 
   res.status(200).json(fetchResponse);

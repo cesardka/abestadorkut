@@ -6,6 +6,7 @@ const DATO_API_TOKEN = "67fb84c3e7d7da492fa64e37cfb458";
 
 const datoModelId = {
   community: "1005785",
+  testimonial: "1038529",
 };
 
 const defaultCommunities = [
