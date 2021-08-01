@@ -12,9 +12,15 @@ import {
 } from "../src/lib/AlurakutCommons";
 import { githubUser } from "../src/constants";
 
-export default function Home() {
+  const defaultFormData = {
+    title: "",
+    imageUrl: "",
+    url: "",
+  };
+
   const [communities, setCommunities] = useState([]);
   const [followers, setFollowers] = useState([]);
+  const [formFields, setFormFields] = useState(defaultFormData);
 
   useEffect(async () => {
     const newCommunities = await fetch(`/api/communities`).then(
@@ -34,19 +40,12 @@ export default function Home() {
 
   const handleCreateCommunity = async (event) => {
     event.preventDefault();
-    const communityFormData = new FormData(event.target);
-    const newCommunityData = {
-      title: communityFormData.get("title"),
-      imageUrl: communityFormData.get("imageUrl"),
-      url: communityFormData.get("url"),
-    };
-
     const newCommunityResponse = await fetch(`/api/communities/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newCommunityData),
+      body: JSON.stringify(formFields),
     })
       .then(async (response) => {
         return await response.json();
@@ -55,9 +54,15 @@ export default function Home() {
         console.error(err);
       });
 
-    const newCommunityList = [newCommunityResponse, ...communities];
+    setFormFields(defaultFormData);
+    setCommunities([newCommunityResponse, ...communities]);
+  };
 
-    setCommunities(newCommunityList);
+  const handleChangeForm = (e) => {
+    setFormFields({
+      ...formFields,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (
@@ -76,26 +81,26 @@ export default function Home() {
             <h2 className="subTitle">O que você deseja fazer?</h2>
             <Form
               onSubmit={handleCreateCommunity}
+              onChange={handleChangeForm}
               submitButtonText="Criar comunidade"
-            >
-              <input
-                placeholder="Qual vai ser o nome da sua comuniudade?"
-                name="title"
-                aria-label="Qual vai ser o nome da sua comuniudade?"
-                type="text"
-              />
-              <input
-                placeholder="Coloque uma URL para usarmos de capa?"
-                name="imageUrl"
-                aria-label="Coloque uma URL para usarmos de capa?"
-              />
-              <input
-                placeholder="Onde fica a sua comunidade?"
-                name="url"
-                aria-label="Onde fica a sua comunidade?"
-                type="text"
-              />
-            </Form>
+              fields={[
+                {
+                  name: "title",
+                  label: "Qual vai ser o nome da sua comuniudade?",
+                  value: formFields.title,
+                },
+                {
+                  name: "imageUrl",
+                  label: "Coloque uma URL para usarmos de capa?",
+                  value: formFields.imageUrl,
+                },
+                {
+                  name: "url",
+                  label: "Onde fica a sua comunidade?",
+                  value: formFields.url,
+                },
+              ]}
+            ></Form>
           </Box>
         </div>
         <div className="profileRelationsArea">
