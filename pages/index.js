@@ -32,17 +32,30 @@ export default function Home() {
     setFollowers(newFollowers);
   }, []);
 
-  const handleCreateCommunity = (event) => {
+  const handleCreateCommunity = async (event) => {
     event.preventDefault();
     const communityFormData = new FormData(event.target);
-    const newCommunity = {
-      id: new Date().toISOString(),
+    const newCommunityData = {
       title: communityFormData.get("title"),
-      image: communityFormData.get("image"),
+      imageUrl: communityFormData.get("imageUrl"),
       url: communityFormData.get("url"),
     };
 
-    const newCommunityList = [...communities, newCommunity];
+    const newCommunityResponse = await fetch(`/api/communities/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newCommunityData),
+    })
+      .then(async (response) => {
+        return await response.json();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+
+    const newCommunityList = [newCommunityResponse, ...communities];
 
     setCommunities(newCommunityList);
   };
@@ -76,7 +89,7 @@ export default function Home() {
               />
               <input
                 placeholder="Coloque uma URL para usarmos de capa?"
-                name="image"
+                name="imageUrl"
                 aria-label="Coloque uma URL para usarmos de capa?"
               />
               <input

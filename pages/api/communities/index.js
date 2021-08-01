@@ -1,11 +1,16 @@
 import { SiteClient } from "datocms-client";
-import { DATO_API_TOKEN } from "../../../src/constants";
+import { DATO_API_TOKEN, datoModelId } from "../../../src/constants";
 
 const datoCmsClient = new SiteClient(DATO_API_TOKEN);
 
 const getAll = async ({ limit = 0 }) => {
+  const pageLimit = limit ? { "page[limit]": limit } : {};
+
   const data = await datoCmsClient.items.all(
-    limit ? { "page[limit]": limit } : {},
+    {
+      "filter[type]": "community",
+      ...pageLimit,
+    },
     !limit ? { allPages: true } : {}
   );
 
@@ -15,6 +20,7 @@ const getAll = async ({ limit = 0 }) => {
 const create = async ({ title, description = "", imageUrl, url }) => {
   try {
     return await datoCmsClient.items.create({
+      itemType: datoModelId["community"],
       title,
       description,
       imageUrl,
@@ -38,7 +44,7 @@ const destroy = async ({ id }) => {
     });
 };
 
-async function handler(req, res) {
+const handler = async (req, res) => {
   let fetchResponse = {};
   switch (req.method) {
     case "GET":
@@ -55,6 +61,6 @@ async function handler(req, res) {
   }
 
   res.status(200).json(fetchResponse);
-}
+};
 
 export default handler;

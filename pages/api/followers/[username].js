@@ -8,7 +8,7 @@ const getAll = async (userId) => {
   return data;
 };
 
-async function handler(req, res) {
+const handler = async (req, res) => {
   const { username } = req.query;
   if (!username) {
     return res.status(400).json({
@@ -25,6 +25,6 @@ async function handler(req, res) {
       return res.status(500);
   }
   res.status(200).json(fetchResponse);
-}
+};
 
 export default handler;

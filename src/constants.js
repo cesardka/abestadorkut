@@ -4,6 +4,10 @@ const githubUser = "cesardka";
 const URL_API_DATO = "https://graphql.datocms.com";
 const DATO_API_TOKEN = "67fb84c3e7d7da492fa64e37cfb458";
 
+const datoModelId = {
+  community: "1005785",
+};
+
 const defaultCommunities = [
   {
     id: new Date().toISOString(),
@@ -18,6 +22,7 @@ const MAX_GRID_LIST = 6;
 
 export {
   DATO_API_TOKEN,
+  datoModelId,
   defaultCommunities,
   githubUser,
   MAX_GRID_LIST,
