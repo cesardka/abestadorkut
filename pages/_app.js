@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { AlurakutStyles } from "../src/lib/AlurakutCommons";
 
@@ -57,6 +58,10 @@ const App = ({ Component, pageProps }) => {
     <>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
+        <Head>
+          <title>AbestadOrkut</title>
+          <link rel="shortcut icon" href="/favicon.ico" />
+        </Head>
         <Component {...pageProps} />
       </ThemeProvider>
     </>

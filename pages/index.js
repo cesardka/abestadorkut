@@ -62,9 +62,6 @@ export default function Home() {
 
   return (
     <>
-      <Head>
-        <title>AbestadOrkut</title>
-      </Head>
       <AlurakutMenu githubUser={githubUser} />
       <MainGrid>
         <div className="profileArea">
